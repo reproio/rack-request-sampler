@@ -1,4 +1,4 @@
-# Rack::Request::Sampler
+# Rack::RequestSampler
 
 Rack middleware for sampling requests with the specified rate and handling it.
 
@@ -23,9 +23,9 @@ Or install it yourself as:
 When you want to handle the requests once in three times,
 
 ```ruby
-use Rack::Request::Sampler
+use Rack::RequestSampler
 
-Rack::Request::Sampler.config.on_picked_up = { numerator: 1, denominator: 3 }, Proc.new do |env|
+Rack::RequestSampler.config.on_picked_up = { numerator: 1, denominator: 3 }, Proc.new do |env|
   # Write the code to be applied to the picked up request
 end
 ```
@@ -33,9 +33,9 @@ end
 If you want to pick up requests in the multiple conditions, 
 
 ```ruby
-use Rack::Request::Sampler
+use Rack::RequestSampler
 
-Rack::Request::Sampler.config.on_picked_up = [
+Rack::RequestSampler.config.on_picked_up = [
   { numerator: 1, denominator: 3 }, Proc.new do |env|
      # The condition to be picked should be checked at first
    end],[
@@ -61,4 +61,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Rack::Request::Sampler project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/woahidan/rack-request-sampler/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Rack::RequestSampler project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/woahidan/rack-request-sampler/blob/master/CODE_OF_CONDUCT.md).
