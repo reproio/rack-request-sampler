@@ -1,11 +1,9 @@
-
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "rack/request/sampler/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "rack-request-sampler"
-  spec.version       = Rack::Request::Sampler::VERSION
+  spec.version       = "0.1.0"
   spec.authors       = ["woshidan"]
   spec.email         = ["bibro.pcg@gmail.com"]
 

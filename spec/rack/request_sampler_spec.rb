@@ -1,7 +1,6 @@
 require "rack/test"
-require "byebug"
 
-RSpec.describe Rack::Request::Sampler do
+RSpec.describe Rack::RequestSampler do
   include Rack::Test::Methods
 
   class TestApp
@@ -23,19 +22,15 @@ RSpec.describe Rack::Request::Sampler do
   end
 
   let(:test_app) { TestApp.new }
-  let(:app) { Rack::Request::Sampler.new test_app }
+  let(:app) { Rack::RequestSampler.new test_app }
   let(:dog) { Dog.new }
   let(:cat) { Cat.new }
-
-  it "has a version number" do
-    expect(Rack::Request::Sampler::VERSION).not_to be nil
-  end
 
   context "single configuration" do
     before {
       allow(dog).to receive(:play).with(anything)
 
-      Rack::Request::Sampler.config.on_picked_up = { numerator: 1, denominator: 1 }, Proc.new do |env|
+      Rack::RequestSampler.config.on_picked_up = { numerator: 1, denominator: 1 }, Proc.new do |env|
         dog.play env
       end
     }
@@ -59,11 +54,11 @@ RSpec.describe Rack::Request::Sampler do
       allow(dog).to receive(:play).with(anything)
       allow(cat).to receive(:play).with(anything)
 
-      Rack::Request::Sampler.config.on_picked_up = { numerator: 1, denominator: 1 }, Proc.new do |env|
+      Rack::RequestSampler.config.on_picked_up = { numerator: 1, denominator: 1 }, Proc.new do |env|
         dog.play env
       end
 
-      Rack::Request::Sampler.config.on_picked_up = { numerator: 1, denominator: 1 }, Proc.new do |env|
+      Rack::RequestSampler.config.on_picked_up = { numerator: 1, denominator: 1 }, Proc.new do |env|
         dog.play env
         cat.play env
       end
