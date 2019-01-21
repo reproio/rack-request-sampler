@@ -30,7 +30,7 @@ RSpec.describe Rack::RequestSampler do
     before {
       allow(dog).to receive(:play).with(anything)
 
-      Rack::RequestSampler.config.on_picked_up = { numerator: 1, denominator: 1 }, Proc.new do |env|
+      Rack::RequestSampler.config.on_sampled(ratio: 1.0) do |env|
         dog.play env
       end
     }
@@ -54,11 +54,11 @@ RSpec.describe Rack::RequestSampler do
       allow(dog).to receive(:play).with(anything)
       allow(cat).to receive(:play).with(anything)
 
-      Rack::RequestSampler.config.on_picked_up = { numerator: 1, denominator: 1 }, Proc.new do |env|
+      Rack::RequestSampler.config.on_sampled(ratio: 1.0) do |env|
         dog.play env
       end
 
-      Rack::RequestSampler.config.on_picked_up = { numerator: 1, denominator: 1 }, Proc.new do |env|
+      Rack::RequestSampler.config.on_sampled(ratio: 1.0) do |env|
         dog.play env
         cat.play env
       end

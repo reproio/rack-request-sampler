@@ -20,13 +20,13 @@ Or install it yourself as:
 
 ## Usage
 
-When you want to handle the requests once in three times,
+When you want to handle the requests that are 30% of whole requests,
 
 ```ruby
 use Rack::RequestSampler
 
-Rack::RequestSampler.config.on_picked_up = { numerator: 1, denominator: 3 }, Proc.new do |env|
-  # Write the code to be applied to the picked up request
+Rack::RequestSampler.config.on_sampled(ratio: 0.3) do |env|
+  # Write the code to be applied to the sampled request
 end
 ```
 
@@ -35,14 +35,13 @@ If you want to pick up requests in the multiple conditions,
 ```ruby
 use Rack::RequestSampler
 
-Rack::RequestSampler.config.on_picked_up = [
-  { numerator: 1, denominator: 3 }, Proc.new do |env|
-     # The condition to be picked should be checked at first
-   end],[
-   { numerator: 2, denominator: 5 }, Proc.new do |env|
-     # The condition to be picked should be checked next
-   end
-]
+Rack::RequestSampler.config.on_sampled(ratio: 0.3) do |env|
+  # processed first
+end
+
+Rack::RequestSampler.config.on_sampled(ratio: 1/7r) do |env| # you can use Rational
+  # processed second
+end
 ```
 
 ## Development
